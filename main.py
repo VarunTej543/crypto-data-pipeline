@@ -1,3 +1,4 @@
+from database.init_db import initialize_database
 from ingestion.fetch_crypto import fetch_crypto_data
 from database.insert_data import insert_crypto_data
 
@@ -11,4 +12,5 @@ def run_pipeline():
     print("Pipeline completed successfully!")
 
 if __name__ == "__main__":
+    initialize_database()
     run_pipeline()
