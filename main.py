@@ -1,16 +1,19 @@
+from etl.extract import extract
+from etl.transform import transform
+from etl.load import load
 from database.init_db import initialize_database
-from ingestion.fetch_crypto import fetch_crypto_data
-from database.insert_data import insert_crypto_data
 
 def run_pipeline():
-    print("Fetching crypto data...")
-    data = fetch_crypto_data()
 
-    print("Inserting into database...")
-    insert_crypto_data(data)
+    initialize_database()
 
-    print("Pipeline completed successfully!")
+    raw_data = extract()
+
+    transformed_data = transform(raw_data)
+
+    load(transformed_data)
+
+    print("ETL Pipeline completed successfully!")
 
 if __name__ == "__main__":
-    initialize_database()
     run_pipeline()
