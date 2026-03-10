@@ -1,16 +1,20 @@
 import pandas as pd
+from datetime import datetime
 
 def transform(data):
 
-    print("Transforming data...")
+    rows = []
 
-    df = pd.DataFrame([data])
+    for coin_name, values in data.items():
 
-    # Data Cleaning
-    df["coin"] = df["coin"].str.lower()
-    df["price"] = df["price"].astype(float)
+        rows.append({
+            "coin_name": coin_name,
+            "price": values["usd"],
+            "market_cap": values["usd_market_cap"],
+            "volume_24h": values["usd_24h_vol"],
+            "timestamp": datetime.now()
+        })
 
-    # Add processing timestamp
-    df["processed_at"] = pd.Timestamp.now()
+    df = pd.DataFrame(rows)
 
     return df
